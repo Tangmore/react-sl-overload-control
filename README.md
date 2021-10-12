@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+1.项目初始化
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 全局安装
+npm install -g create-react-app
+# 构建一个my-app的项目
+npx create-react-app my-app 
 
-## Available Scripts
+2. 配置路径别名
 
-In the project directory, you can run:
+# 暴露webpack
+npm run eject
+# 修改 webpack.config
+```js
+ alias: {
+    ...
+    // 文件路径别名
+    '@': path.resolve(__dirname, '../src'),
+    '@view': path.resolve(__dirname, '../src/view'),
+},
+```
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. Sass配置  默认就是支持Sass的
+npm install node-sass -D 
+    找到module下的rules，然后找到最后一个配置，exclude 里增加 /\.scss$/
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+4. 配置rem
+```js
+<script>
+  ! function (e) {
+      function t(a) {
+          if (i[a]) return i[a].exports;
+          var n = i[a] = {
+              exports: {},
+              id: a,
+              loaded: !1
+          };
+          return e[a].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports
+      }
+      var i = {};
+      return t.m = e, t.c = i, t.p = "", t(0)
+  }([function (e, t) {
+      "use strict";
+      Object.defineProperty(t, "__esModule", {
+          value: !0
+      });
+      var i = window;
+      t["default"] = i.flex = function (normal, e, t) {
+          var a = e || 100,
+              n = t || 1,
+              r = i.document,
+              o = navigator.userAgent,
+              d = o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),
+              l = o.match(/U3\/((\d+|\.){5,})/i),
+              c = l && parseInt(l[1].split(".").join(""), 10) >= 80,
+              p = navigator.appVersion.match(/(iphone|ipad|ipod)/gi),
+              s = i.devicePixelRatio || 1;
+          p || d && d[1] > 534 || c || (s = 1);
+          var u = normal ? 1 : 1 / s,
+              m = r.querySelector('meta[name="viewport"]');
+          m || (m = r.createElement("meta"), m.setAttribute("name", "viewport"), r.head.appendChild(
+                  m)), m.setAttribute("content",
+                  "width=device-width,user-scalable=no,initial-scale=" + u + ",maximum-scale=" + u +
+                  ",minimum-scale=" + u), r.documentElement.style.fontSize = normal ? "50px" : a / 2 *
+              s * n + "px"
+      }, e.exports = t["default"]
+  }]);
+  flex(false, 20, 1);
+</script>
+```
 
-### `npm test`
+5. 样式格式化
+npm install normalize.css 
+index.js 中 import 'normalize.css'
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. 路由设置，安装 react-router-dom
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
