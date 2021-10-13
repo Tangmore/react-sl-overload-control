@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 class Son extends Component {
     constructor(props) {
         super(props);
+        this.myRef = React.createRef();  
         this.state = {
             name:'',
+            flag:false
         };
     }
     componentDidMount() {
@@ -14,17 +16,34 @@ class Son extends Component {
         console.log(this.props.parent)
         this.props.getChild(this)
     }
+    componentWillUnmount(){
+
+    }
     changeName=(e)=>{
         this.setState({
             name:e.target.value
         })
+        // this.myRef.current.focus()
+    }
+    UserGreeting() {
+        return <h1>Welcome back!</h1>;
+    }
+      
+    GuestGreeting() {
+        return <h1>Please sign up.</h1>;
     }
     render() {
+        let inputDiv;
+        if(this.state.flag){
+            inputDiv = this.UserGreeting();
+        }else{
+            inputDiv = this.GuestGreeting();
+        } 
         return ( 
-            <div>
-                {this.props.title}
-                {this.state.name}
-                <input type="text" value={this.state.name} onChange={this.changeName}/>    
+            <div> 
+                {this.state.flag?this.props.title:this.state.name}
+                {inputDiv}
+                <input type="text" ref={this.myRef} value={this.state.name} onChange={this.changeName}/>    
             </div> 
         );
     }
